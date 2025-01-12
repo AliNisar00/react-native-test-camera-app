@@ -5,8 +5,8 @@ import * as ImagePicker from 'expo-image-picker';
 const App = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
+  // Function to pick an image from the gallery
   const pickImageFromGallery = async () => {
-    // Ask for permission to access gallery
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (!permissionResult.granted) {
@@ -14,15 +14,34 @@ const App = () => {
       return;
     }
 
-    // Launch the image picker
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true, // Allow cropping
-      quality: 1, // Maximum quality
+      allowsEditing: true,
+      quality: 1,
     });
 
     if (!result.canceled) {
-      setSelectedImage(result.assets[0].uri); // Set the selected image URI
+      setSelectedImage(result.assets[0].uri);
+    }
+  };
+
+  // Function to take a photo using the camera
+  const takePhotoFromCamera = async () => {
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (!permissionResult.granted) {
+      alert('Permission to access the camera is required!');
+      return;
+    }
+
+    const result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0].uri);
     }
   };
 
@@ -30,7 +49,7 @@ const App = () => {
     <View style={styles.container}>
       {/* Buttons */}
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={takePhotoFromCamera}>
           <Text style={styles.buttonText}>Take Photo from Camera</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={pickImageFromGallery}>
