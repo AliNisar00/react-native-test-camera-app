@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, Image, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  Image,
+  StyleSheet,
+  Modal,
+} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 const App = () => {
+  const [modalVisible, setModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [productName, setProductName] = useState('');
 
-  // Function to pick an image from the gallery
   const pickImageFromGallery = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -26,7 +34,6 @@ const App = () => {
     }
   };
 
-  // Function to take a photo using the camera
   const takePhotoFromCamera = async () => {
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
 
@@ -47,41 +54,96 @@ const App = () => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Product Name Text Field */}
-      <TextInput
-        style={styles.textInput}
-        placeholder="Product name"
-        placeholderTextColor="#888"
-        value={productName}
-        onChangeText={text => setProductName(text)}
-      />
+    <View style={styles.mainContainer}>
+      {/* Add Product Button */}
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={styles.addButtonText}>Add Product</Text>
+      </TouchableOpacity>
 
-      {/* Buttons */}
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={takePhotoFromCamera}>
-          <Text style={styles.buttonText}>Take Photo from Camera</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={pickImageFromGallery}>
-          <Text style={styles.buttonText}>Add Photo from Gallery</Text>
-        </TouchableOpacity>
-      </View>
+      {/* Modal for Adding Product */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContainer}>
+            {/* Product Name Text Field */}
+            <TextInput
+              style={styles.textInput}
+              placeholder="Product name"
+              placeholderTextColor="#888"
+              value={productName}
+              onChangeText={(text) => setProductName(text)}
+            />
 
-      {/* Display Selected Image */}
-      {selectedImage && (
-        <Image source={{ uri: selectedImage }} style={styles.imagePreview} />
-      )}
+            {/* Buttons for Image Selection */}
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.button} onPress={takePhotoFromCamera}>
+                <Text style={styles.buttonText}>Take Photo from Camera</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={pickImageFromGallery}>
+                <Text style={styles.buttonText}>Add Photo from Gallery</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Display Selected Image */}
+            {selectedImage && (
+              <Image source={{ uri: selectedImage }} style={styles.imagePreview} />
+            )}
+
+            {/* Close Modal Button */}
+            <TouchableOpacity
+              style={styles.closeModalButton}
+              onPress={() => setModalVisible(false)}
+            >
+              <Text style={styles.closeModalButtonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+  },
+  addButton: {
+    backgroundColor: '#007bff',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 10,
+  },
+  addButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Dim background
+  },
+  modalContainer: {
+    width: '90%', // Adjust modal size
+    padding: 20,
     backgroundColor: '#fff',
-    paddingHorizontal: 20,
+    borderRadius: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
   },
   textInput: {
     width: '100%',
@@ -98,15 +160,15 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 50,
+    marginBottom: 20,
   },
   button: {
-    width: 120,
+    flex: 1,
     height: 120,
     backgroundColor: '#007bff',
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 10,
+    marginHorizontal: 5,
     borderRadius: 10,
   },
   buttonText: {
@@ -115,12 +177,24 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   imagePreview: {
-    width: 200,
+    width: '100%',
     height: 200,
-    marginTop: 20,
+    marginTop: 10,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#ddd',
+  },
+  closeModalButton: {
+    backgroundColor: '#ff3b30',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginTop: 20,
+  },
+  closeModalButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
