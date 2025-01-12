@@ -14,6 +14,7 @@ const App = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [productName, setProductName] = useState('');
+  const [productDesc, setProductDesc] = useState('');
 
   const pickImageFromGallery = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -96,12 +97,29 @@ const App = () => {
               <Image source={{ uri: selectedImage }} style={styles.imagePreview} />
             )}
 
+            {/* Optional Product Description Text Field */}
+            <TextInput
+              style={styles.textInput}
+              placeholder="Product description (optional)"
+              placeholderTextColor="#888"
+              value={productDesc}
+              onChangeText={(text) => setProductDesc(text)}
+            />
+
+            {/* Submit Button */}
+            <TouchableOpacity
+              style={styles.submitButton}
+              onPress={() => setModalVisible(false)}
+            >
+              <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
+
             {/* Close Modal Button */}
             <TouchableOpacity
               style={styles.closeModalButton}
               onPress={() => setModalVisible(false)}
             >
-              <Text style={styles.closeModalButtonText}>Close</Text>
+              <Text style={styles.buttonText}>Close</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -132,10 +150,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Dim background
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContainer: {
-    width: '90%', // Adjust modal size
+    width: '90%',
     padding: 20,
     backgroundColor: '#fff',
     borderRadius: 15,
@@ -190,11 +208,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 10,
     marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  closeModalButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
+  submitButton: {
+    backgroundColor: '#529603',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
