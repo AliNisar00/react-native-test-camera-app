@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, Image, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 const App = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [productName, setProductName] = useState('');
 
   // Function to pick an image from the gallery
   const pickImageFromGallery = async () => {
@@ -47,6 +48,15 @@ const App = () => {
 
   return (
     <View style={styles.container}>
+      {/* Product Name Text Field */}
+      <TextInput
+        style={styles.textInput}
+        placeholder="Product name"
+        placeholderTextColor="#888"
+        value={productName}
+        onChangeText={text => setProductName(text)}
+      />
+
       {/* Buttons */}
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={takePhotoFromCamera}>
@@ -71,6 +81,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
+    paddingHorizontal: 20,
+  },
+  textInput: {
+    width: '100%',
+    height: 50,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    marginBottom: 20,
+    fontSize: 16,
+    color: '#333',
+    backgroundColor: '#f9f9f9',
   },
   buttonContainer: {
     flexDirection: 'row',
