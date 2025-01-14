@@ -7,6 +7,9 @@ import {
   Image,
   StyleSheet,
   Modal,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -73,75 +76,85 @@ const App = () => {
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalOverlay}>
-          <View style={styles.modalContainer}>
-            {/* Product Name Text Field */}
-            <LinearGradient
-              colors={["#C84DCB", "#5A32A0"]}
-              style={styles.gradientBackground}
+          <KeyboardAvoidingView
+            style={styles.modalContainer}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          >
+            <ScrollView contentContainerStyle={{ 
+              flexGrow: 1,
+              paddingVertical: 20,
+              }}
+              keyboardShouldPersistTaps="handled"
             >
-              <TextInput
-                style={styles.nameTextInput}
-                placeholder="Product name"
-                placeholderTextColor="#fff"
-                value={productName}
-                onChangeText={(text) => setProductName(text)}
-              />
-            </LinearGradient>
-
-            {/* Buttons for Image Selection */}
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.imageButton} onPress={takePhotoFromCamera}>
-                <Image
-                  source={require('../../assets/images/photoFromCamera.png')} // Add your image file path here
-                  style={styles.imageButtonImage}
+              {/* Product Name Text Field */}
+              <LinearGradient
+                colors={["#C84DCB", "#5A32A0"]}
+                style={styles.gradientBackground}
+              >
+                <TextInput
+                  style={styles.nameTextInput}
+                  placeholder="Product name"
+                  placeholderTextColor="#fff"
+                  value={productName}
+                  onChangeText={(text) => setProductName(text)}
                 />
-                <Text style={styles.imageButtonText}>Take Product Photo from Camera</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.imageButton} onPress={pickImageFromGallery}>
-                <Image
-                  source={require('../../assets/images/photoFromGallery.png')} // Add your image file path here
-                  style={styles.imageButtonImage}
+              </LinearGradient>
+
+              {/* Buttons for Image Selection */}
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.imageButton} onPress={takePhotoFromCamera}>
+                  <Image
+                    source={require('../../assets/images/photoFromCamera.png')} // Add your image file path here
+                    style={styles.imageButtonImage}
+                  />
+                  <Text style={styles.imageButtonText}>Take Product Photo from Camera</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.imageButton} onPress={pickImageFromGallery}>
+                  <Image
+                    source={require('../../assets/images/photoFromGallery.png')} // Add your image file path here
+                    style={styles.imageButtonImage}
+                  />
+                  <Text style={styles.imageButtonText}>Add Product Photo from Gallery</Text>
+                </TouchableOpacity>
+              </View>
+
+              {/* Display Selected Image */}
+              {selectedImage && (
+                <Image source={{ uri: selectedImage }} style={styles.imagePreview} />
+              )}
+
+              {/* Optional Product Description Text Field */}
+              <LinearGradient
+                colors={["#C84DCB", "#5A32A0"]}
+                style={styles.gradientBackground}
+              >
+                <TextInput
+                  style={styles.descTextInput}
+                  placeholder="Product description (optional)"
+                  placeholderTextColor="#fff"
+                  value={productDesc}
+                  onChangeText={(text) => setProductDesc(text)}
+                  multiline={true}
                 />
-                <Text style={styles.imageButtonText}>Add Product Photo from Gallery</Text>
+              </LinearGradient>
+
+              {/* Submit Button */}
+              <TouchableOpacity
+                style={styles.submitButton}
+                onPress={() => setModalVisible(false)}
+              >
+                <Text style={styles.buttonText}>Submit</Text>
               </TouchableOpacity>
-            </View>
 
-            {/* Display Selected Image */}
-            {selectedImage && (
-              <Image source={{ uri: selectedImage }} style={styles.imagePreview} />
-            )}
-
-            {/* Optional Product Description Text Field */}
-            <LinearGradient
-              colors={["#C84DCB", "#5A32A0"]}
-              style={styles.gradientBackground}
-            >
-              <TextInput
-                style={styles.descTextInput}
-                placeholder="Product description (optional)"
-                placeholderTextColor="#fff"
-                value={productDesc}
-                onChangeText={(text) => setProductDesc(text)}
-                multiline={true}
-              />
-            </LinearGradient>
-
-            {/* Submit Button */}
-            <TouchableOpacity
-              style={styles.submitButton}
-              onPress={() => setModalVisible(false)}
-            >
-              <Text style={styles.buttonText}>Submit</Text>
-            </TouchableOpacity>
-
-            {/* Close Modal Button */}
-            <TouchableOpacity
-              style={styles.closeModalButton}
-              onPress={() => setModalVisible(false)}
-            >
-              <Text style={styles.buttonText}>Close</Text>
-            </TouchableOpacity>
-          </View>
+              {/* Close Modal Button */}
+              <TouchableOpacity
+                style={styles.closeModalButton}
+                onPress={() => setModalVisible(false)}
+              >
+                <Text style={styles.buttonText}>Close</Text>
+              </TouchableOpacity>
+            </ScrollView>
+          </KeyboardAvoidingView>
         </View>
       </Modal>
     </View>
