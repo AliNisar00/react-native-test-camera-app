@@ -122,6 +122,9 @@ const App = () => {
               {selectedImage && (
                 <Image source={{ uri: selectedImage }} style={styles.imagePreview} />
               )}
+              
+              {/* Add space between image preview and product description */}
+              <View style={{ marginBottom: 25 }} />
 
               {/* Optional Product Description Text Field */}
               <LinearGradient
@@ -280,7 +283,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 10,
-    marginTop: 20,
+    marginTop: 8,
     justifyContent: 'center',
     alignItems: 'center',
   },
