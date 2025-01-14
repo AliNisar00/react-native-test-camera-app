@@ -90,11 +90,11 @@ const App = () => {
 
             {/* Buttons for Image Selection */}
             <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button} onPress={takePhotoFromCamera}>
-                <Text style={styles.buttonText}>Take Photo from Camera</Text>
+              <TouchableOpacity style={styles.imageButton} onPress={takePhotoFromCamera}>
+                <Text style={styles.imageButtonText}>Take Photo from Camera</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={pickImageFromGallery}>
-                <Text style={styles.buttonText}>Add Photo from Gallery</Text>
+              <TouchableOpacity style={styles.imageButton} onPress={pickImageFromGallery}>
+                <Text style={styles.imageButtonText}>Add Photo from Gallery</Text>
               </TouchableOpacity>
             </View>
 
@@ -193,14 +193,27 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 20,
   },
-  button: {
+  imageButton: {
     flex: 1,
     height: 120,
-    backgroundColor: '#007bff',
+    backgroundColor: '#ffffff',
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 5,
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#b2b1b5',
+    elevation: 5, // shadow properties for Android
+    // shadow properties for iOS
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+  },
+  imageButtonText: {
+    color: '#000',
+    textAlign: 'center',
+    fontSize: 14,
   },
   buttonText: {
     color: '#fff',
