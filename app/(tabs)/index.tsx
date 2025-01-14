@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
   },
   closeModalButton: {
     backgroundColor: '#ff3b30',
-    paddingVertical: 10,
+    paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 10,
     marginTop: 20,
@@ -225,8 +225,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   submitButton: {
-    backgroundColor: '#529603',
-    paddingVertical: 10,
+    backgroundColor: '#3d1b7d',
+    paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 10,
     marginTop: 20,
