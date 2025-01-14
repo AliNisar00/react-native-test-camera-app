@@ -91,10 +91,18 @@ const App = () => {
             {/* Buttons for Image Selection */}
             <View style={styles.buttonContainer}>
               <TouchableOpacity style={styles.imageButton} onPress={takePhotoFromCamera}>
-                <Text style={styles.imageButtonText}>Take Photo from Camera</Text>
+                <Image
+                  source={require('../../assets/images/photoFromCamera.png')} // Add your image file path here
+                  style={styles.imageButtonImage}
+                />
+                <Text style={styles.imageButtonText}>Take Product Photo from Camera</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.imageButton} onPress={pickImageFromGallery}>
-                <Text style={styles.imageButtonText}>Add Photo from Gallery</Text>
+                <Image
+                  source={require('../../assets/images/photoFromGallery.png')} // Add your image file path here
+                  style={styles.imageButtonImage}
+                />
+                <Text style={styles.imageButtonText}>Add Product Photo from Gallery</Text>
               </TouchableOpacity>
             </View>
 
@@ -213,12 +221,18 @@ const styles = StyleSheet.create({
   imageButtonText: {
     color: '#000',
     textAlign: 'center',
-    fontSize: 14,
+    fontSize: 11,
+    paddingHorizontal: 15,
   },
   buttonText: {
     color: '#fff',
     textAlign: 'center',
     fontSize: 14,
+  },
+  imageButtonImage: {
+    width: 50,
+    height: 50,
+    marginBottom: 5,
   },
   imagePreview: {
     width: '100%',
