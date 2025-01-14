@@ -9,6 +9,7 @@ import {
   Modal,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const App = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -74,13 +75,18 @@ const App = () => {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContainer}>
             {/* Product Name Text Field */}
-            <TextInput
-              style={styles.textInput}
-              placeholder="Product name"
-              placeholderTextColor="#888"
-              value={productName}
-              onChangeText={(text) => setProductName(text)}
-            />
+            <LinearGradient
+              colors={["#C84DCB", "#5A32A0"]}
+              style={styles.gradientBackground}
+            >
+              <TextInput
+                style={styles.textInput}
+                placeholder="Product name"
+                placeholderTextColor="#fff"
+                value={productName}
+                onChangeText={(text) => setProductName(text)}
+              />
+            </LinearGradient>
 
             {/* Buttons for Image Selection */}
             <View style={styles.buttonContainer}>
@@ -98,13 +104,18 @@ const App = () => {
             )}
 
             {/* Optional Product Description Text Field */}
-            <TextInput
-              style={styles.textInput}
-              placeholder="Product description (optional)"
-              placeholderTextColor="#888"
-              value={productDesc}
-              onChangeText={(text) => setProductDesc(text)}
-            />
+            <LinearGradient
+              colors={["#C84DCB", "#5A32A0"]}
+              style={styles.gradientBackground}
+            >
+              <TextInput
+                style={styles.textInput}
+                placeholder="Product description (optional)"
+                placeholderTextColor="#fff"
+                value={productDesc}
+                onChangeText={(text) => setProductDesc(text)}
+              />
+            </LinearGradient>
 
             {/* Submit Button */}
             <TouchableOpacity
@@ -166,14 +177,16 @@ const styles = StyleSheet.create({
   textInput: {
     width: '100%',
     height: 50,
-    borderColor: '#ccc',
-    borderWidth: 1,
     borderRadius: 10,
     paddingHorizontal: 15,
-    marginBottom: 20,
     fontSize: 16,
-    color: '#333',
-    backgroundColor: '#f9f9f9',
+    color: '#fff',
+    backgroundColor: 'transparent',
+  },
+  gradientBackground: {
+    borderRadius: 10,
+    marginBottom: 20,
+    padding: 2, // Optional for better border effect
   },
   buttonContainer: {
     flexDirection: 'row',
