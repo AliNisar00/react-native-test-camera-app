@@ -86,6 +86,17 @@ const App = () => {
               }}
               keyboardShouldPersistTaps="handled"
             >
+              {/* Cross Button */}
+              <TouchableOpacity
+                style={styles.closeButton}
+                onPress={() => setModalVisible(false)}
+              >
+                <Text style={styles.crossText}>X</Text>
+              </TouchableOpacity>
+
+              {/* Add space between image preview and product description */}
+              <View style={{ marginBottom: 30 }} />
+
               {/* Product Name Text Field */}
               <LinearGradient
                 colors={["#602A9D", "#88258A"]}
@@ -148,14 +159,6 @@ const App = () => {
               >
                 <Text style={styles.buttonText}>Submit</Text>
               </TouchableOpacity>
-
-              {/* Close Modal Button */}
-              <TouchableOpacity
-                style={styles.closeModalButton}
-                onPress={() => setModalVisible(false)}
-              >
-                <Text style={styles.buttonText}>Close</Text>
-              </TouchableOpacity>
             </ScrollView>
           </KeyboardAvoidingView>
         </View>
@@ -191,6 +194,7 @@ const styles = StyleSheet.create({
   modalContainer: {
     width: '90%',
     padding: 20,
+    paddingTop: 1,
     backgroundColor: '#fff',
     borderRadius: 15,
     shadowColor: '#000',
@@ -269,14 +273,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ddd',
   },
-  closeModalButton: {
-    backgroundColor: '#ff3b30',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-    marginTop: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+  closeButton: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    backgroundColor: 'ffffff',
+    zIndex: 1000,
+    padding: 10,
+  },
+  crossText: {
+    fontSize: 30,
+    color: '#808080',
+    fontWeight: 'bold',
   },
   submitButton: {
     backgroundColor: '#3B0C6F',
