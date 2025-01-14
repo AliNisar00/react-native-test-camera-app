@@ -80,7 +80,7 @@ const App = () => {
               style={styles.gradientBackground}
             >
               <TextInput
-                style={styles.textInput}
+                style={styles.nameTextInput}
                 placeholder="Product name"
                 placeholderTextColor="#fff"
                 value={productName}
@@ -117,11 +117,12 @@ const App = () => {
               style={styles.gradientBackground}
             >
               <TextInput
-                style={styles.textInput}
+                style={styles.descTextInput}
                 placeholder="Product description (optional)"
                 placeholderTextColor="#fff"
                 value={productDesc}
                 onChangeText={(text) => setProductDesc(text)}
+                multiline={true}
               />
             </LinearGradient>
 
@@ -182,11 +183,21 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  textInput: {
+  nameTextInput: {
     width: '100%',
     height: 50,
     borderRadius: 10,
     paddingHorizontal: 15,
+    fontSize: 16,
+    color: '#fff',
+    backgroundColor: 'transparent',
+  },
+  descTextInput: {
+    width: '100%',
+    height: 125,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    paddingTop: 10,
     fontSize: 16,
     color: '#fff',
     backgroundColor: 'transparent',
