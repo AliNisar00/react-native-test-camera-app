@@ -88,7 +88,7 @@ const App = () => {
             >
               {/* Product Name Text Field */}
               <LinearGradient
-                colors={["#C84DCB", "#5A32A0"]}
+                colors={["#602A9D", "#88258A"]}
                 style={styles.gradientBackground}
               >
                 <TextInput
@@ -128,7 +128,7 @@ const App = () => {
 
               {/* Optional Product Description Text Field */}
               <LinearGradient
-                colors={["#C84DCB", "#5A32A0"]}
+                colors={["#602A9D", "#88258A"]}
                 style={styles.gradientBackground}
               >
                 <TextInput
@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   submitButton: {
-    backgroundColor: '#3d1b7d',
+    backgroundColor: '#3B0C6F',
     paddingVertical: 15,
     paddingHorizontal: 20,
     borderRadius: 10,
