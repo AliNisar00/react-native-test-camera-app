@@ -1,24 +1,23 @@
-// AddProductRequest.js
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
-  TextInput,
-  Image,
-  StyleSheet,
   Modal,
+  StyleSheet,
+  TextInput,
+  ScrollView,
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
+  Image,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const AddProductRequest = ({ modalVisible, setModalVisible }) => {
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [productName, setProductName] = useState('');
-  const [productDesc, setProductDesc] = useState('');
+const AddProductModal = ({ visible, onClose }) => {
+  const [selectedImage, setSelectedImage] = React.useState(null);
+  const [productName, setProductName] = React.useState('');
+  const [productDesc, setProductDesc] = React.useState('');
 
   const pickImageFromGallery = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -59,99 +58,64 @@ const AddProductRequest = ({ modalVisible, setModalVisible }) => {
   };
 
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={() => setModalVisible(false)}
-    >
+    <Modal animationType="slide" transparent visible={visible} onRequestClose={onClose}>
       <View style={styles.modalOverlay}>
         <KeyboardAvoidingView
           style={styles.modalContainer}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
-          <ScrollView
-            contentContainerStyle={{ flexGrow: 1, paddingVertical: 20 }}
-            keyboardShouldPersistTaps="handled"
-          >
-            {/* Cross Button */}
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => setModalVisible(false)}
-            >
+          <ScrollView contentContainerStyle={styles.scrollView}>
+            {/* Close Button */}
+            <TouchableOpacity style={styles.closeButton} onPress={onClose}>
               <Text style={styles.crossText}>X</Text>
             </TouchableOpacity>
 
-            {/* Product Name Text Field */}
-            <LinearGradient
-              colors={["#602A9D", "#88258A"]}
-              style={styles.gradientBackground}
-            >
+            {/* Product Name */}
+            <LinearGradient colors={['#602A9D', '#88258A']} style={styles.gradientBackground}>
               <TextInput
                 style={styles.nameTextInput}
                 placeholder="Product name"
                 placeholderTextColor="#fff"
                 value={productName}
-                onChangeText={(text) => setProductName(text)}
+                onChangeText={setProductName}
               />
             </LinearGradient>
 
             {/* Buttons for Image Selection */}
             <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={styles.imageButton}
-                onPress={takePhotoFromCamera}
-              >
+              <TouchableOpacity style={styles.imageButton} onPress={takePhotoFromCamera}>
                 <Image
-                  source={require('../assets/images/photoFromCamera.png')} // Add your image file path here
+                  source={require('../assets/images/photoFromCamera.png')}
                   style={styles.imageButtonImage}
                 />
-                <Text style={styles.imageButtonText}>
-                  Take Product Photo from Camera
-                </Text>
+                <Text style={styles.imageButtonText}>Take Product Photo</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.imageButton}
-                onPress={pickImageFromGallery}
-              >
+              <TouchableOpacity style={styles.imageButton} onPress={pickImageFromGallery}>
                 <Image
-                  source={require('../assets/images/photoFromGallery.png')} // Add your image file path here
+                  source={require('../assets/images/photoFromGallery.png')}
                   style={styles.imageButtonImage}
                 />
-                <Text style={styles.imageButtonText}>
-                  Add Product Photo from Gallery
-                </Text>
+                <Text style={styles.imageButtonText}>Choose from Gallery</Text>
               </TouchableOpacity>
             </View>
 
             {/* Display Selected Image */}
-            {selectedImage && (
-              <Image
-                source={{ uri: selectedImage }}
-                style={styles.imagePreview}
-              />
-            )}
+            {selectedImage && <Image source={{ uri: selectedImage }} style={styles.imagePreview} />}
 
-            {/* Optional Product Description Text Field */}
-            <LinearGradient
-              colors={["#602A9D", "#88258A"]}
-              style={styles.gradientBackground}
-            >
+            {/* Product Description */}
+            <LinearGradient colors={['#602A9D', '#88258A']} style={styles.gradientBackground}>
               <TextInput
                 style={styles.descTextInput}
                 placeholder="Product description (optional)"
                 placeholderTextColor="#fff"
                 value={productDesc}
-                onChangeText={(text) => setProductDesc(text)}
-                multiline={true}
+                onChangeText={setProductDesc}
+                multiline
               />
             </LinearGradient>
 
             {/* Submit Button */}
-            <TouchableOpacity
-              style={styles.submitButton}
-              onPress={() => setModalVisible(false)}
-            >
+            <TouchableOpacity style={styles.submitButton} onPress={onClose}>
               <Text style={styles.buttonText}>Submit</Text>
             </TouchableOpacity>
           </ScrollView>
@@ -162,7 +126,6 @@ const AddProductRequest = ({ modalVisible, setModalVisible }) => {
 };
 
 const styles = StyleSheet.create({
-
   modalOverlay: {
     flex: 1,
     justifyContent: 'center',
@@ -275,4 +238,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddProductRequest;
+export default AddProductModal;
