@@ -64,11 +64,19 @@ const AddProductModal = ({ visible, onClose }) => {
           style={styles.modalContainer}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
-          <ScrollView contentContainerStyle={styles.scrollView}>
+          <ScrollView contentContainerStyle={{
+            flexGrow: 1,
+            paddingVertical: 20,
+            }}
+            keyboardShouldPersistTaps="handled"
+          >
             {/* Close Button */}
             <TouchableOpacity style={styles.closeButton} onPress={onClose}>
               <Text style={styles.crossText}>X</Text>
             </TouchableOpacity>
+
+            {/* Add Space Between Close Button and Product Name Text Field */}
+            <View style={{ marginBottom: 30 }} />
 
             {/* Product Name */}
             <LinearGradient colors={['#602A9D', '#88258A']} style={styles.gradientBackground}>
@@ -102,7 +110,10 @@ const AddProductModal = ({ visible, onClose }) => {
             {/* Display Selected Image */}
             {selectedImage && <Image source={{ uri: selectedImage }} style={styles.imagePreview} />}
 
-            {/* Product Description */}
+            {/* Add Space Between Image Preview and Product Description */}
+            <View style={{ marginBottom: 25 }} />
+
+            {/* Optional Product Description Text Field */}
             <LinearGradient colors={['#602A9D', '#88258A']} style={styles.gradientBackground}>
               <TextInput
                 style={styles.descTextInput}
